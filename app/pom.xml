@@ -16,6 +16,25 @@
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <env>dev</env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env>prod</env>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -74,5 +93,22 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <filters>
+            <!--suppress UnresolvedMavenProperty -->
+            <filter>src/main/resources/config.${env}.properties</filter>
+        </filters>
+
+        <!--  resources -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+        
     </build>
 </project>
